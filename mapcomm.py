@@ -28,12 +28,12 @@ class LoiterStuff:
           
      def update_n3m0_location(self):
          ## update the boat location
-         r=requests.post('http://sailbot.holdentechnology.com/postlatlon.php',data={'b_no':1,'lat':myLoiter.lat,'lon':myLoiter.lon,'mode':myLoiter.mode,'debug':myLoiter.message})
+         r=requests.post('http://sailbot.holdentechnology.com/postlatlon.php',data={'b_no':1,'lat':myLoiter.lat,'lon':myLoiter.lon,'mode':myLoiter.mode,'debug':myLoiter.message}, timeout=60)
          #print(r.text)
 
      def get_pic_requests(self):
          ## get data
-         r2 = requests.get('http://sailbot.holdentechnology.com/getbuoys.php')          
+         r2 = requests.get('http://sailbot.holdentechnology.com/getbuoys.php', timeout=60)          
          thedata=r2.text.split(';')
 
          myLoiter.plat=float(thedata[8])
@@ -66,7 +66,7 @@ while not myLoiter.time_to_quit:
      if myLoiter.pmode.find('REQUESTED')>=0:
          print('picture requested')
          getpix=True
-         r=requests.post('http://sailbot.holdentechnology.com/postlatlon.php',data={'b_no':2,'lat':myLoiter.plat,'lon':myLoiter.plon,'mode':'Request Received','debug':'Going for picture'})
+         r=requests.post('http://sailbot.holdentechnology.com/postlatlon.php',data={'b_no':2,'lat':myLoiter.plat,'lon':myLoiter.plon,'mode':'Request Received','debug':'Going for picture'}, timeout=60)
 
      
 
